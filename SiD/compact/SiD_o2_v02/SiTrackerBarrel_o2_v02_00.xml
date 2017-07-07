@@ -62,7 +62,7 @@
 
 <detectors>
  <!-- We use here NN's TrackerBarrel_o1_v03 driver -->
- <detector id="3" name="SiTrackerBarrel" type="TrackerBarrel_o1_v03" readout="SiTrackerBarrelHits" vis="SiTrackerBarrelVis">
+ <detector id="3" name="SiTrackerBarrel" type="TrackerBarrel_o1_v03" readout="SiTrackerBarrelHits" vis="SiTrackerBarrelVis" region="TrkSilicon">
   <envelope vis="EnvelopeVis">
      <shape type="Assembly"/>
   </envelope>

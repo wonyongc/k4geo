@@ -8,7 +8,7 @@
 </readouts>
 
 <detectors>
- <detector id="1" name="SiVertexBarrel" type="DD4hep_SiTrackerBarrel" readout="SiVertexBarrelHits" insideTrackingVolume="true" vis="SiVertexBarrelVis">
+ <detector id="1" name="SiVertexBarrel" type="DD4hep_SiTrackerBarrel" readout="SiVertexBarrelHits" insideTrackingVolume="true" vis="SiVertexBarrelVis" region="VtxSilicon">
   <comment>Vertex Detector Barrel</comment>
   <module name="VtxBarrelModuleInner">
     <module_envelope width="9.8*mm" length="63.0 * 2*mm" thickness="0.6*mm"/>

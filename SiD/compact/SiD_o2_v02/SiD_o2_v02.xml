@@ -125,6 +125,18 @@
       <limit name="step_length_max" particles="*" value="5.0" unit="mm" />
     </limitset>
   </limits>
+  <regions>
+	  <region name="TrkSilicon" eunit="MeV" lunit="mm" cut="0.001" threshold="0.001">
+	  </region>
+	  <region name="VtxSilicon" eunit="MeV" lunit="mm" cut="0.001" threshold="0.001">
+	  </region>
+	  <region name="BeamPipeRegion" eunit="MeV" lunit="mm" cut="0.001" threshold="0.001">
+	  </region>
+	  <region name="VtxSupportRegion" eunit="MeV" lunit="mm" cut="0.001" threshold="0.001">
+	  </region>
+	  <region name="TrkSupportRegion" eunit="MeV" lunit="mm" cut="0.001" threshold="0.001">
+	  </region>
+  </regions>
 
   <display>
     <vis name="BeampipeVis" r="0.7734375" g="0.8671875" b="0.99609375" />
@@ -167,7 +179,7 @@
   <include ref="SiTrackerForward_o2_v02_00.xml"/>
   
   <comment>Calorimeters</comment>  
-  <include ref="ECalBarrel_o2_v03_00.xml"/>
+  <!--include ref="ECalBarrel_o2_v03_00.xml"/>
   <include ref="ECalEndcap_o2_v02_00.xml"/>
 
   <include ref="HCalBarrel_o2_v02_00.xml"/>
@@ -179,15 +191,15 @@
   <include ref="LumiCal_o2_v02_00.xml"/>
   <include ref="BeamCal_o2_v02_00.xml"/>
 
-  <include ref="Solenoid_o2_v02_00.xml"/>
+  <include ref="Solenoid_o2_v02_00.xml"/ -->
 
   <comment>Beam pipe</comment>
-  <!--include ref="BeamPipe.xml"/-->
+  <include ref="BeamPipe.xml"/>
   
   <comment>Dead material and supports</comment>
   <comment>Vertex Detector Supports and Readout</comment>  
   <!--  FG: fixme: should be split up into more individual files  ... -->
-  <!-- <include ref="Support.xml"/> -->
+  <include ref="Support.xml"/>
 
   <!-- ############ Individual plugins are now in SUBDET.xml files ############# -->
   <plugins>
