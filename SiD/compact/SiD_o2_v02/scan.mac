@@ -1,0 +1,5 @@
+/control/matScan/region BeamPipeRegion
+#/control/matScan/theta 901 0 90
+#/control/matScan/phi 3601 0 360
+/control/matScan/scan
+
