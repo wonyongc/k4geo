@@ -47,7 +47,7 @@
   <include ref="../IDEA_o1_v03/VertexComplete_IDEA_o1_v03.xml"/>
 
   <!-- Import drift chamber -->
-  <include ref="../IDEA_o1_v03/DriftChamber_o1_v02.xml"/>
+  <!-- <include ref="../IDEA_o1_v03/DriftChamber_o1_v02.xml"/> -->
 
   <!-- Import silicon wrapper -->
   <include ref="../IDEA_o1_v03/SiliconWrapper_o1_v03.xml"/>
@@ -57,6 +57,9 @@
 
   <!-- Import Endcap plate absorber -->
   <include ref="../IDEA_o1_v03/EndPlateAbsorber_o1_v01.xml"/>
+
+  <!-- Import Segmented crystal ECAL-->
+  <include ref="SCEPCal.xml"/>
 
   <!-- Import tubes-based dual-readout calorimeter -->
   <include ref="DREndcapTubes_o1_v01.xml"/>

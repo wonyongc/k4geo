@@ -4,7 +4,7 @@ from g4units import cm, mm, GeV, MeV
 SIM = DD4hepSimulation()
 
 ## The compact XML file, or multiple compact files, if the last one is the closer.
-SIM.compactFile = ["../FCCee/IDEA/compact/IDEA_o2_v01/IDEA_o2_v01.xml"]
+SIM.compactFile = ["FCCee/IDEA/compact/IDEA_o2_v01/IDEA_o2_v01.xml"]
 ## Lorentz boost for the crossing angle, in radian!
 SIM.crossingAngleBoost = 0.0
 SIM.enableDetailedShowerMode = False
@@ -12,11 +12,11 @@ SIM.enableG4GPS = False
 SIM.enableG4Gun = False
 SIM.enableGun = True
 ## InputFiles for simulation .stdhep, .slcio, .HEPEvt, .hepevt, .pairs, .hepmc, .hepmc.gz, .hepmc.xz, .hepmc.bz2, .hepmc3, .hepmc3.gz, .hepmc3.xz, .hepmc3.bz2, .hepmc3.tree.root files are supported
-SIM.inputFiles = []
+SIM.inputFiles = ["/home/wonyongc/src/calvision/SCEPCal-public/examples/wzp6_ee_ZZ_test_ecm240_1k.stdhep"]
 ## Macro file to execute for runType 'run' or 'vis'
 SIM.macroFile = ""
 ## number of events to simulate, used in batch mode
-SIM.numberOfEvents = 10
+SIM.numberOfEvents = 1
 ## Outputfile from the simulation: .slcio, edm4hep.root and .root output files are supported
 SIM.outputFile = "IDEA_o2_v01.root"
 ## Physics list to use in simulation
@@ -103,8 +103,10 @@ SIM.action.calo = "Geant4ScintillatorCalorimeterAction"
 ## List of patterns matching sensitive detectors of type Calorimeter.
 SIM.action.calorimeterSDTypes = ["calorimeter"]
 
-## Replace SDAction for DREndcapTubes subdetector
-SIM.action.mapActions["DREndcapTubes"] = "DRTubesSDAction"
+## Replace SDAction for subdetectors
+SIM.action.mapActions = { 'SCEPCal' : "SCEPCalSDAction_DRHit",
+                          'DREndcapTubes' : "DRTubesSDAction" }
+
 ## Configure the regexSD for DREndcapTubes subdetector
 SIM.geometry.regexSensitiveDetector["DREndcapTubes"] = {
     "Match": ["DRETS"],
@@ -184,7 +186,7 @@ SIM.filter.filters = {
 }
 
 ##  a map between patterns and filter objects, using patterns to attach filters to sensitive detector
-SIM.filter.mapDetFilter = {}
+SIM.filter.mapDetFilter = {'SCEPCal' : 'edep1kev'}
 
 ##  default filter for tracking sensitive detectors; this is applied if no other filter is used for a tracker
 SIM.filter.tracker = "edep1kev"
@@ -243,7 +245,7 @@ SIM.guineapig.particlesPerEvent = "-1"
 ################################################################################
 
 ##  direction of the particle gun, 3 vector
-SIM.gun.direction = (0, 0, 1)
+SIM.gun.direction = (0, 0, 0)
 
 ## choose the distribution of the random direction for theta
 ##
@@ -277,10 +279,10 @@ SIM.gun.etaMin = None
 SIM.gun.isotrop = False
 
 ## Maximal momentum when using distribution (default = 0.0)
-SIM.gun.momentumMax = 10000.0
+SIM.gun.momentumMax = 10.0*GeV
 
 ## Minimal momentum when using distribution (default = 0.0)
-SIM.gun.momentumMin = 0.0
+SIM.gun.momentumMin = 10.0*GeV
 SIM.gun.multiplicity = 1
 SIM.gun.particle = "e-"
 
@@ -440,7 +442,25 @@ SIM.outputConfig.forceLCIO = False
 ##       # arbitrary options can be created and set via the steering file or command line
 ##       SIM.outputConfig.myExtension = '.csv'
 ##
-
+def setupEDM4hepOutputDR(dd4hepSimulation):
+     from DDG4 import EventAction, Kernel
+     dd = dd4hepSimulation
+     evt_edm4hep = EventAction(Kernel(), 'Geant4Output2EDM4hep_DRC/' + dd.outputFile, True)
+     evt_edm4hep.Control = True
+     output = dd.outputFile
+     if not dd.outputFile.endswith(dd.outputConfig.myExtension):
+          output = dd.outputFile + dd.outputConfig.myExtension
+     evt_edm4hep.Output = output
+     evt_edm4hep.enableUI()
+     Kernel().eventAction().add(evt_edm4hep)
+     eventPars = dd.meta.parseEventParameters()
+     evt_edm4hep.RunHeader = dd.meta.addParametersToRunHeader(dd)
+     evt_edm4hep.EventParametersString, evt_edm4hep.EventParametersInt, evt_edm4hep.EventParametersFloat = eventPars
+     evt_edm4hep.RunNumberOffset = dd.meta.runNumberOffset if dd.meta.runNumberOffset > 0 else 0
+     evt_edm4hep.EventNumberOffset = dd.meta.eventNumberOffset if dd.meta.eventNumberOffset > 0 else 0
+     return None
+SIM.outputConfig.userOutputPlugin = setupEDM4hepOutputDR
+SIM.outputConfig.myExtension = '.root'
 
 ################################################################################
 ## Configuration for the Particle Handler/ MCTruth treatment
@@ -507,7 +527,7 @@ SIM.part.userParticleHandler = "Geant4TCUserParticleHandler"
 
 ## Set of Generator Statuses that are used to mark unstable particles that should decay inside of Geant4.
 ##
-SIM.physics.alternativeDecayStatuses = set()
+# SIM.physics.alternativeDecayStatuses = set()
 
 ## If true, add decay processes for all particles.
 ##
@@ -589,7 +609,7 @@ def setupCerenkov(kernel):
 
     seq = kernel.physicsList()
     cerenkov = PhysicsList(kernel, "Geant4CerenkovPhysics/CerenkovPhys")
-    cerenkov.MaxNumPhotonsPerStep = 1000
+    cerenkov.MaxNumPhotonsPerStep = 100
     # cerenkov.MaxBetaChangePerStep = 10.0
     # cerenkov.TrackSecondariesFirst = True
     cerenkov.VerboseLevel = 0

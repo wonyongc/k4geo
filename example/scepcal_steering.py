@@ -17,6 +17,38 @@ SIM.macroFile = ""
 
 opticalPhysics = True
 
+def setupCerenkovScint(kernel):
+     from DDG4 import PhysicsList
+     seq = kernel.physicsList()
+
+     scint = PhysicsList(kernel, 'Geant4ScintillationPhysics/ScintillationPhys')
+     scint.VerboseLevel = 0
+     scint.TrackSecondariesFirst = True
+     scint.enableUI()
+     seq.adopt(scint)
+
+     cerenkov = PhysicsList(kernel, 'Geant4CerenkovPhysics/CerenkovPhys')
+     cerenkov.VerboseLevel = 0
+     cerenkov.MaxNumPhotonsPerStep = 10
+     cerenkov.MaxBetaChangePerStep = 10.0
+     cerenkov.TrackSecondariesFirst = True
+     cerenkov.enableUI()
+     seq.adopt(cerenkov)
+
+     ph = PhysicsList(kernel, 'Geant4OpticalPhotonPhysics/OpticalGammaPhys')
+     ph.addParticleConstructor('G4OpticalPhoton')
+     ph.VerboseLevel = 0
+     ph.enableUI()
+     seq.adopt(ph)
+
+     return None
+if opticalPhysics:
+     SIM.physics.setupUserPhysics(setupCerenkovScint)
+     print ("Optical physics is ON !")
+else:
+     print ("Optical physics is OFF !")
+
+
 # SIM.inputFiles = ['examples/wzp6_ee_ZZ_test_ecm240_1k.stdhep']
 # SIM.outputFile = 'examples/wzp6_ee_ZZ_test_ecm240_n1_cut0_BEonly.root'
 SIM.numberOfEvents = 1
@@ -107,37 +139,6 @@ SIM.physics.rejectPDGs = {1, 2, 3, 4, 5, 6,
                           5203, 3303, 4201, 4203, 
                           5101, 5103, 5503}
 SIM.physics.zeroTimePDGs = {17, 11, 13, 15}
-
-def setupCerenkovScint(kernel):
-     from DDG4 import PhysicsList
-     seq = kernel.physicsList()
-
-     scint = PhysicsList(kernel, 'Geant4ScintillationPhysics/ScintillationPhys')
-     scint.VerboseLevel = 0
-     scint.TrackSecondariesFirst = True
-     scint.enableUI()
-     seq.adopt(scint)
-
-     cerenkov = PhysicsList(kernel, 'Geant4CerenkovPhysics/CerenkovPhys')
-     cerenkov.VerboseLevel = 0
-     cerenkov.MaxNumPhotonsPerStep = 10
-     cerenkov.MaxBetaChangePerStep = 10.0
-     cerenkov.TrackSecondariesFirst = True
-     cerenkov.enableUI()
-     seq.adopt(cerenkov)
-
-     ph = PhysicsList(kernel, 'Geant4OpticalPhotonPhysics/OpticalGammaPhys')
-     ph.addParticleConstructor('G4OpticalPhoton')
-     ph.VerboseLevel = 0
-     ph.enableUI()
-     seq.adopt(ph)
-
-     return None
-if opticalPhysics:
-     SIM.physics.setupUserPhysics(setupCerenkovScint)
-     print ("Optical physics is ON !")
-else:
-     print ("Optical physics is OFF !")
 
 SIM.random.enableEventSeed = False
 SIM.random.file = None
