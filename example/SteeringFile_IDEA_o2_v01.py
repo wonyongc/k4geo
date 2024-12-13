@@ -4,7 +4,7 @@ from g4units import cm, mm, GeV, MeV
 SIM = DD4hepSimulation()
 
 ## The compact XML file, or multiple compact files, if the last one is the closer.
-SIM.compactFile = ["FCCee/IDEA/compact/IDEA_o2_v01/IDEA_o2_v01.xml"]
+SIM.compactFile = ["../FCCee/IDEA/compact/IDEA_o2_v01/IDEA_o2_v01.xml"]
 ## Lorentz boost for the crossing angle, in radian!
 SIM.crossingAngleBoost = 0.0
 SIM.enableDetailedShowerMode = False
@@ -12,11 +12,11 @@ SIM.enableG4GPS = False
 SIM.enableG4Gun = False
 SIM.enableGun = True
 ## InputFiles for simulation .stdhep, .slcio, .HEPEvt, .hepevt, .pairs, .hepmc, .hepmc.gz, .hepmc.xz, .hepmc.bz2, .hepmc3, .hepmc3.gz, .hepmc3.xz, .hepmc3.bz2, .hepmc3.tree.root files are supported
-SIM.inputFiles = ["/home/wonyongc/src/calvision/SCEPCal-public/examples/wzp6_ee_ZZ_test_ecm240_1k.stdhep"]
+SIM.inputFiles = []
 ## Macro file to execute for runType 'run' or 'vis'
 SIM.macroFile = ""
 ## number of events to simulate, used in batch mode
-SIM.numberOfEvents = 1
+SIM.numberOfEvents = 10
 ## Outputfile from the simulation: .slcio, edm4hep.root and .root output files are supported
 SIM.outputFile = "IDEA_o2_v01.root"
 ## Physics list to use in simulation
@@ -104,8 +104,8 @@ SIM.action.calo = "Geant4ScintillatorCalorimeterAction"
 SIM.action.calorimeterSDTypes = ["calorimeter"]
 
 ## Replace SDAction for subdetectors
-SIM.action.mapActions = { 'SCEPCal' : "SCEPCalSDAction_DRHit",
-                          'DREndcapTubes' : "DRTubesSDAction" }
+SIM.action.mapActions["DREndcapTubes"] = "DRTubesSDAction"
+SIM.action.mapActions["SCEPCal"] = "SCEPCalSDAction_DRHit"
 
 ## Configure the regexSD for DREndcapTubes subdetector
 SIM.geometry.regexSensitiveDetector["DREndcapTubes"] = {
@@ -245,7 +245,7 @@ SIM.guineapig.particlesPerEvent = "-1"
 ################################################################################
 
 ##  direction of the particle gun, 3 vector
-SIM.gun.direction = (0, 0, 0)
+SIM.gun.direction = (0, 0, 1)
 
 ## choose the distribution of the random direction for theta
 ##
@@ -279,10 +279,10 @@ SIM.gun.etaMin = None
 SIM.gun.isotrop = False
 
 ## Maximal momentum when using distribution (default = 0.0)
-SIM.gun.momentumMax = 10.0*GeV
+SIM.gun.momentumMax = 10000.0
 
 ## Minimal momentum when using distribution (default = 0.0)
-SIM.gun.momentumMin = 10.0*GeV
+SIM.gun.momentumMin = 0.0
 SIM.gun.multiplicity = 1
 SIM.gun.particle = "e-"
 
@@ -527,7 +527,7 @@ SIM.part.userParticleHandler = "Geant4TCUserParticleHandler"
 
 ## Set of Generator Statuses that are used to mark unstable particles that should decay inside of Geant4.
 ##
-# SIM.physics.alternativeDecayStatuses = set()
+SIM.physics.alternativeDecayStatuses = set()
 
 ## If true, add decay processes for all particles.
 ##
@@ -609,7 +609,7 @@ def setupCerenkov(kernel):
 
     seq = kernel.physicsList()
     cerenkov = PhysicsList(kernel, "Geant4CerenkovPhysics/CerenkovPhys")
-    cerenkov.MaxNumPhotonsPerStep = 100
+    cerenkov.MaxNumPhotonsPerStep = 1000
     # cerenkov.MaxBetaChangePerStep = 10.0
     # cerenkov.TrackSecondariesFirst = True
     cerenkov.VerboseLevel = 0
