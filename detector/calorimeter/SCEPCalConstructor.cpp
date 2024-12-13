@@ -3,7 +3,7 @@
 //         Princeton University
 //===============================
 
-#include "detectorSegmentations/SCEPCalSegmentationHandle_k4geo.h"
+#include "detectorSegmentations/SCEPCalSegmentation_k4geo.h"
 #include "DD4hep/DetFactoryHelper.h"
 #include "DD4hep/DetectorTools.h"
 #include "DD4hep/Printout.h"
