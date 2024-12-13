@@ -15,7 +15,7 @@
 #include <edm4hep/RawCalorimeterHitCollection.h>
 #include <edm4hep/RawTimeSeriesCollection.h>
 #include <edm4hep/EDM4hepVersion.h>
-#include <edm4hep/SimDRCalorimeterHitCollection.h>
+#include <edm4dr/SimDRCalorimeterHitCollection.h>
 #include "DRCrystalHit.h"
 /// podio include files
 #include <podio/CollectionBase.h>
@@ -61,7 +61,7 @@ namespace dd4hep {
       using drcalomap_t = std::map< std::string, drcalopair_t >;                                                // Required info for IDEA DRC sim hit
       using drcaloWavmap_t = std::map< std::string, edm4hep::RawTimeSeriesCollection >;
 
-      using scepcalcalopair_t = std::pair< edm4hep::SimDRCalorimeterHitCollection, edm4hep::CaloHitContributionCollection >;
+      using scepcalcalopair_t = std::pair< edm4dr::SimDRCalorimeterHitCollection, edm4hep::CaloHitContributionCollection >;
       using scepcalcalomap_t = std::map< std::string, scepcalcalopair_t >;
 
       std::unique_ptr<writer_t>     m_file  { };
