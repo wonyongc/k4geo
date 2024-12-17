@@ -310,8 +310,8 @@
     <vis name="DRBTcher_core_vis" alpha="1.0" r="0.392" g="0.584" b="0.929" showDaughters="false" visible="false" />
     <vis name="DRBTair_vis" alpha="0.10" r="1.0" g="0.0" b="0.0" showDaughters="true" visible="false" />
     <vis name="DRBTtrap_vis" alpha="1.0" r="0.855" g="0.647" b="0.125" showDaughters="false" visible="true" />
-    <vis name="DRBTstave_vis" alpha="0.1" r="0.2" g="0.2" b="0.2" showDaughters="true" visible="true" />
-    <vis name="DRBTassembly_vis" alpha="0.0" r="0.33" g="0.33" b="0.33" showDaughters="true" visible="true" />
+    <vis name="DRBTstave_vis" alpha="0.1" r="0.2" g="0.2" b="0.2" showDaughters="true" visible="false" />
+    <vis name="DRBTassembly_vis" alpha="0.0" r="0.33" g="0.33" b="0.33" showDaughters="true" visible="false" />
     <!-- end of DRBT vis-->
     <vis name="yoke_vis" r="255/256" g="0/256" b="0/256" alpha="1.0" showDaughters="true" visible="true" />
     <vis name="no_vis" showDaughters="true" visible="false" />
