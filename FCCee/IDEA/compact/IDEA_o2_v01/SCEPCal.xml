@@ -1016,7 +1016,7 @@
 
       <timing construct="true" phistart="0" phiend="128"/>
       <barrel construct="true" phistart="0" phiend="128"/>
-      <endcap construct="true" phistart="0" phiend="128" thetastart="10"/>
+      <endcap construct="true" phistart="0" phiend="128" thetastart="35"/>
 
       <dim    barrelHalfZ="2.40*m"
               barrelInnerR="2.25*m" 
