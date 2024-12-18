@@ -249,3 +249,4 @@ test/gaudi_opts/testConverterConstants.py
 
 edm4dr/edm4dr
 edm4dr/src
+*.root
