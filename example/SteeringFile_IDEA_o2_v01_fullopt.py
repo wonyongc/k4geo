@@ -104,6 +104,7 @@ SIM.action.calo = "Geant4ScintillatorCalorimeterAction"
 SIM.action.calorimeterSDTypes = ["calorimeter"]
 
 ## Replace SDAction for subdetectors
+SIM.action.mapActions["DRBarrelTubes"] = "DRTubesSDAction"
 SIM.action.mapActions["DREndcapTubes"] = "DRTubesSDAction"
 SIM.action.mapActions["SCEPCal"] = "SCEPCalSDAction_DRHit"
 
