@@ -8,11 +8,11 @@ SIM.compactFile = ["FCCee/IDEA/compact/IDEA_o2_v01/IDEA_o2_v01.xml"]
 ## Lorentz boost for the crossing angle, in radian!
 SIM.crossingAngleBoost = 0.0
 SIM.enableDetailedShowerMode = False
-SIM.enableG4GPS = False
-SIM.enableG4Gun = False
-SIM.enableGun = True
+# SIM.enableG4GPS = False
+# SIM.enableG4Gun = False
+# SIM.enableGun = True
 ## InputFiles for simulation .stdhep, .slcio, .HEPEvt, .hepevt, .pairs, .hepmc, .hepmc.gz, .hepmc.xz, .hepmc.bz2, .hepmc3, .hepmc3.gz, .hepmc3.xz, .hepmc3.bz2, .hepmc3.tree.root files are supported
-SIM.inputFiles = []
+# SIM.inputFiles = ['example/wzp6_ee_ZZ_test_ecm240_1k.stdhep']
 ## Macro file to execute for runType 'run' or 'vis'
 SIM.macroFile = ""
 ## number of events to simulate, used in batch mode
